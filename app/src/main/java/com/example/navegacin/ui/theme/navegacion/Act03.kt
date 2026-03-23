@@ -1,6 +1,5 @@
 package com.example.navegacin.ui.theme.navegacion
 
-import android.widget.Space
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,29 +17,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.serialization.descriptors.PrimitiveKind
-
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 @Composable
-@Preview(showBackground = true)
-fun Act03(){
-    var entrada by remember {mutableStateOf("")}
-    Column(modifier= Modifier
-        .fillMaxSize(),
+//@Preview(showBackground = true)
+fun Act03(navController: NavController) {
+    var entrada by remember { mutableStateOf("") }
+    var edad by remember { mutableStateOf(0) }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Text(text = "Ingresar el año de nacimiento a calcular...")
+        Spacer(modifier = Modifier.padding(12.dp))
+
         TextField(
             value = entrada,
-            onValueChange = {entrada = it},
-            placeholder = {Text(text = "Año de nacimiento")
-        })
-        Spacer(modifier = Modifier.padding(16.dp))
-        Button(onClick = {
-            val nacimiento = entrada.toInt()
-            val edad = 2026 - nacimiento
+            onValueChange = { entrada = it },
+            placeholder = { Text(text = "Año de nacimiento") }
+        )
 
-        }){
-            Texto(texto = "Calcular edad")
+        Spacer(modifier = Modifier.padding(16.dp))
+
+        Button(onClick = {
+            val nacimiento = entrada.toIntOrNull()
+
+            if (nacimiento != null) {
+                edad = 2026 - nacimiento
+
+                // NAVEGAR Y MANDAR EDAD
+                navController.navigate("resultado/$edad")
+            }
+        }) {
+            Text(text = "Calcular edad")
         }
     }
-    }
+}
