@@ -28,7 +28,7 @@ fun ResultadoView(datos: EdadModel, navController: NavHostController) {
     val edad = datos.edad
 
     val respuesta =
-        if (edad == 14) "Menor de edad"
+        if (edad >= 1 && edad <=14) "Menor de edad"
         else if (edad == 15) "Mayor de edad en Indonesia pero no en México"
         else if (edad == 16) "Mayor de edad en Cuba pero no en México"
         else if (edad == 17) "Mayor de edad en Corea del norte pero no en México"
@@ -49,7 +49,7 @@ fun ResultadoView(datos: EdadModel, navController: NavHostController) {
         Spacer(modifier = Modifier.height(5.dp))
         Text(text = "Entonces: $respuesta")
         Spacer(modifier = Modifier.height(16.dp))
-        if (edad <= 14){
+        if (edad >= 1 && edad <=14){
             Image(
                 painter = painterResource(R.drawable.icononino),
                 contentDescription = "imagen_niño",
@@ -64,7 +64,7 @@ fun ResultadoView(datos: EdadModel, navController: NavHostController) {
                 modifier = Modifier
                     .size(150.dp)
             )
-        } else {
+        } else if (edad >= 60 && edad <=64){
             Image(
                 painter = painterResource(R.drawable.iconoanciano),
                 contentDescription = "imagen_anciano",
